@@ -1,3 +1,4 @@
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -18,8 +19,19 @@ public class Practice {
    * @param vertex The starting vertex for the traversal.
    */
   public <T> void printVertexVals(Vertex<T> vertex) {
-  }
+    Set<Vertex<T>> visted = new HashSet<>();
+    printVertexVals(vertex, visted);
 
+  }
+  private <T> void printVertexVals(Vertex<T> vertex, Set<Vertex<T>> visted){
+    if(vertex==null||visted.contains(vertex)) return;
+    visted.add(vertex);
+    System.out.println(vertex.data);
+
+    for(var neighbor: vertex.neighbors){
+      printVertexVals(neighbor, visted);
+    }
+  }
   /**
    * Returns a set of all vertices reachable from the given starting vertex,
    * including the starting vertex itself.
