@@ -66,8 +66,21 @@ public class Practice {
    * @return The maximum value of any reachable vertex, or Integer.MIN_VALUE if vertex is null.
    */
   public int max(Vertex<Integer> vertex) {
-    return -1;
+    if(vertex==null) return Integer.MIN_VALUE;
+    Set<Vertex<Integer>> visted = new HashSet<>();
+    return max(vertex,visted);
   }
+
+  private int max(Vertex<Integer> vertex, Set<Vertex<Integer>> visted){
+    if(vertex==null||visted.contains(vertex)) return Integer.MIN_VALUE;
+      visted.add(vertex);
+    int higherValue=vertex.data;  
+    for(var neighbor: vertex.neighbors){
+      higherValue= Math.max(higherValue, max(neighbor, visted));
+    }
+    return higherValue;
+  }
+
 
   /**
    * Returns a set of all leaf vertices reachable from the given starting vertex.
